@@ -257,9 +257,7 @@ function App() {
                     {currentQuizConfig.title}
                   </h1>
                 </div>
-                <div className="text-center text-sm text-gray-600 mt-1">
-                  Question {currentQuestionIndex + 1} of {randomizedQuestions.length}
-                </div>
+
               </div>
 
               {gameState === 'playing' && getCurrentQuestion() ? (
