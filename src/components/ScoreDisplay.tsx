@@ -25,7 +25,7 @@ export function ScoreDisplay({
   bestRun,
   quizConfig
 }: ScoreDisplayProps) {
-  const percentage = total === 0 ? 0 : Math.round((correct / total) * 100);
+  const percentage = total === 0 ? 0 : Math.round((correct / totalQuestions) * 100);
   const accentColor = quizConfig.themeColor;
 
   return (
@@ -33,7 +33,7 @@ export function ScoreDisplay({
       <div className="flex gap-4 text-lg font-semibold flex-wrap justify-center">
         <div className="bg-white px-4 py-2 rounded-lg shadow-sm">
           <span className="text-gray-600">Score: </span>
-          <span className={`text-${accentColor}-600`}>{correct}/{total}</span>
+          <span className={`text-${accentColor}-600`}>{correct}/{totalQuestions}</span>
         </div>
         <div className="bg-white px-4 py-2 rounded-lg shadow-sm">
           <span className="text-gray-600">Accuracy: </span>

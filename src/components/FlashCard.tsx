@@ -81,7 +81,9 @@ export function FlashCard({
       maxWidth: `${maxWidth}px`,
       maxHeight: `${maxHeight}px`,
       width: 'auto',
-      height: 'auto'
+      height: 'auto',
+      objectFit: 'contain',
+      backgroundColor: 'transparent'
     };
   };
 
@@ -108,9 +110,9 @@ export function FlashCard({
             <span className="text-sm text-gray-500">Question {questionNumber} of {totalQuestions}</span>
           </div>
           <div className="flex flex-col items-center mb-4">
-            <div className="w-full max-w-2xl bg-gray-50 rounded-lg flex items-center justify-center mb-4 p-4">
+            <div className="w-full max-w-2xl rounded-lg flex items-center justify-center mb-4 p-4">
               {!imageLoaded && !imageError && (
-                <div className="w-full h-64 flex flex-col items-center justify-center bg-gray-100 rounded-lg border-2 border-dashed border-gray-300">
+                <div className="w-full h-64 flex flex-col items-center justify-center bg-transparent rounded-lg border-2 border-dashed border-gray-300">
                   <div className="text-gray-400 text-center px-4">
                     <div className="text-sm font-medium mb-1">Loading Image</div>
                   </div>

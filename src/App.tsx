@@ -4,7 +4,8 @@ import { ScoreDisplay } from './components/ScoreDisplay';
 import { StartScreen } from './components/StartScreen';
 import { UserNameInput } from './components/UserNameInput';
 import { Footer } from './components/Footer';
-import { templateQuestions, secondQuizQuestions, QUIZ_CONFIG, SECOND_QUIZ_CONFIG } from './data/templateQuiz';
+import { templateQuestions, QUIZ_CONFIG } from './data/templateQuiz';
+import { secondQuizQuestions, SECOND_QUIZ_CONFIG } from './data/quiz';
 import { shuffleArray, getRandomOptions } from './lib/utils';
 import type { QuizStats, QuestionData, HighScoreEntry } from './types';
 import { Book } from 'lucide-react';
@@ -32,15 +33,13 @@ function App() {
 
   const currentQuizConfig = selectedQuiz === 'quiz2' ? SECOND_QUIZ_CONFIG : QUIZ_CONFIG;
   const currentQuestions = selectedQuiz === 'quiz2' ? secondQuizQuestions : templateQuestions;
-  const totalQuizQuestions = currentQuestions.length; // Store total questions count
 
-  // Get all unique possible answers for the quiz
+  // Get possible answers from the current quiz only
   const allPossibleAnswers = useMemo(() => 
     Array.from(new Set(currentQuestions.map(q => q.correctAnswer))),
     [currentQuestions]
   );
 
-  // Load initial stats from localStorage
   useEffect(() => {
     if (selectedQuiz) {
       const statsKey = `quiz_stats_${currentQuizConfig.quiz_name}`;
@@ -51,7 +50,6 @@ function App() {
     }
   }, [selectedQuiz, currentQuizConfig.quiz_name]);
 
-  // Timer effect with pause functionality
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
 
@@ -100,7 +98,7 @@ function App() {
   const updateStats = (userName: string) => {
     const statsKey = `quiz_stats_${currentQuizConfig.quiz_name}`;
     const currentStats = getCurrentStats();
-    const accuracy = Math.round((correctAnswers / totalAnswers) * 100);
+    const accuracy = Math.round((correctAnswers / currentQuizConfig.totalQuestions) * 100);
 
     const newHighScore = Math.max(currentStats.highScore, correctAnswers);
 
@@ -154,10 +152,10 @@ function App() {
     setLastPauseTime(null);
     setAccumulatedTime(0);
     
-    // Ensure we use all questions from the selected quiz
+    // Use all questions from the selected quiz
     const questionsForQuiz = selectedQuiz === 'quiz2' ? secondQuizQuestions : templateQuestions;
-    const allShuffledQuestions = shuffleArray([...questionsForQuiz]);
-    setRandomizedQuestions(allShuffledQuestions);
+    const shuffledQuestions = shuffleArray([...questionsForQuiz]);
+    setRandomizedQuestions(shuffledQuestions);
   };
 
   const handleAnswer = (correct: boolean) => {
@@ -205,11 +203,8 @@ function App() {
   }, [currentQuestionIndex, randomizedQuestions, allPossibleAnswers]);
 
   const handleResetScores = (quizName: string) => {
-    // Reset scores for the specific quiz
     const statsKey = `quiz_stats_${quizName}`;
     localStorage.setItem(statsKey, JSON.stringify(INITIAL_QUIZ_STATS));
-    
-    // Refresh the page to ensure all states are reset
     window.location.reload();
   };
 
@@ -246,7 +241,7 @@ function App() {
                     highScore={getCurrentStats().highScore}
                     onRestart={handleRestart}
                     isFinished={false}
-                    totalQuestions={totalQuizQuestions}
+                    totalQuestions={currentQuizConfig.totalQuestions}
                     currentTime={currentTime}
                     bestRun={getCurrentStats().bestRun}
                     quizConfig={currentQuizConfig}
@@ -257,7 +252,7 @@ function App() {
                     onAnswer={handleAnswer}
                     onNext={handleNext}
                     questionNumber={currentQuestionIndex + 1}
-                    totalQuestions={totalQuizQuestions}
+                    totalQuestions={currentQuizConfig.totalQuestions}
                   />
                 </div>
               ) : (
@@ -268,7 +263,7 @@ function App() {
                     highScore={getCurrentStats().highScore}
                     onRestart={handleRestart}
                     isFinished={true}
-                    totalQuestions={totalQuizQuestions}
+                    totalQuestions={currentQuizConfig.totalQuestions}
                     currentTime={currentTime}
                     bestRun={getCurrentStats().bestRun}
                     quizConfig={currentQuizConfig}
@@ -279,7 +274,7 @@ function App() {
                     currentTime={currentTime}
                     highScores={getCurrentStats().highScores}
                     quizConfig={currentQuizConfig}
-                    totalQuestions={totalQuizQuestions}
+                    totalQuestions={currentQuizConfig.totalQuestions}
                   />
                 </div>
               )}

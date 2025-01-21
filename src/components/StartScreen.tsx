@@ -4,6 +4,8 @@ import { QuizStats, QuizConfig } from '../types';
 import { HighScoresList } from './HighScoresList';
 import { GlobalLeaderboard } from './GlobalLeaderboard';
 import { ENABLE_GLOBAL_LEADERBOARD } from '../config/features';
+import { templateQuestions } from '../data/templateQuiz';
+import { secondQuizQuestions } from '../data/quiz';
 
 interface StartScreenProps {
   onQuizSelect: (quiz: 'quiz1' | 'quiz2') => void;
@@ -28,6 +30,10 @@ export function StartScreen({
   const [quiz2ImageError, setQuiz2ImageError] = useState(false);
   const [quiz2ImageLoaded, setQuiz2ImageLoaded] = useState(false);
 
+  // Get the actual question counts from the quiz data
+  const quiz1QuestionCount = templateQuestions.length;
+  const quiz2QuestionCount = secondQuizQuestions.length;
+
   return (
     <div className="max-w-4xl w-full flex flex-col items-center">
       <div className="text-center mb-8 w-full">
@@ -50,7 +56,7 @@ export function StartScreen({
           </div>
 
           {quiz1Config.startScreenImage && (
-            <div className="w-full h-48 bg-gray-50 rounded-lg overflow-hidden mb-4">
+            <div className="w-full h-48 flex items-center justify-center mb-4">
               {!quiz1ImageLoaded && !quiz1ImageError && (
                 <div className="w-full h-full flex items-center justify-center">
                   <div className="text-gray-400">Loading...</div>
@@ -73,7 +79,7 @@ export function StartScreen({
             </div>
           )}
 
-          <p className="text-gray-600 mb-4 text-center">{quiz1Config.description}</p>
+          <p className="text-gray-600 mb-4 text-center">Test your knowledge of Damage Control symbols ({quiz1QuestionCount} questions)</p>
 
           <HighScoresList 
             scores={quiz1Stats.highScores}
@@ -98,7 +104,7 @@ export function StartScreen({
           </div>
 
           {quiz2Config.startScreenImage && (
-            <div className="w-full h-48 bg-gray-50 rounded-lg overflow-hidden mb-4">
+            <div className="w-full h-48 flex items-center justify-center mb-4">
               {!quiz2ImageLoaded && !quiz2ImageError && (
                 <div className="w-full h-full flex items-center justify-center">
                   <div className="text-gray-400">Loading...</div>
@@ -121,7 +127,7 @@ export function StartScreen({
             </div>
           )}
 
-          <p className="text-gray-600 mb-4 text-center">{quiz2Config.description}</p>
+          <p className="text-gray-600 mb-4 text-center">Test your knowledge of Damage Control legends ({quiz2QuestionCount} questions)</p>
 
           <HighScoresList 
             scores={quiz2Stats.highScores}
