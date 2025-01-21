@@ -23,6 +23,7 @@ export function FlashCard({
   const [showResult, setShowResult] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [imageNaturalSize, setImageNaturalSize] = useState<{ width: number; height: number } | null>(null);
   const [options, setOptions] = useState<string[]>([]);
 
   // Set options only when question changes, ensuring uniqueness
@@ -44,6 +45,7 @@ export function FlashCard({
     setShowResult(false);
     setImageLoaded(false);
     setImageError(false);
+    setImageNaturalSize(null);
   }, [question]);
 
   const handleAnswer = (answer: string) => {
@@ -58,6 +60,29 @@ export function FlashCard({
   const handleImageError = () => {
     setImageError(true);
     setImageLoaded(true);
+  };
+
+  const handleImageLoad = (event: React.SyntheticEvent<HTMLImageElement>) => {
+    const img = event.target as HTMLImageElement;
+    setImageNaturalSize({
+      width: img.naturalWidth,
+      height: img.naturalHeight
+    });
+    setImageLoaded(true);
+  };
+
+  const getImageStyle = () => {
+    if (!imageNaturalSize) return {};
+    
+    const maxWidth = Math.min(imageNaturalSize.width, 800); // Maximum width we want to allow
+    const maxHeight = Math.min(imageNaturalSize.height, 600); // Maximum height we want to allow
+    
+    return {
+      maxWidth: `${maxWidth}px`,
+      maxHeight: `${maxHeight}px`,
+      width: 'auto',
+      height: 'auto'
+    };
   };
 
   const getOptionStyles = (option: string) => {
@@ -83,7 +108,7 @@ export function FlashCard({
             <span className="text-sm text-gray-500">Question {questionNumber} of {totalQuestions}</span>
           </div>
           <div className="flex flex-col items-center mb-4">
-            <div className="w-full max-w-2xl h-auto bg-gray-50 rounded-lg flex items-center justify-center mb-4">
+            <div className="w-full max-w-2xl bg-gray-50 rounded-lg flex items-center justify-center mb-4 p-4">
               {!imageLoaded && !imageError && (
                 <div className="w-full h-64 flex flex-col items-center justify-center bg-gray-100 rounded-lg border-2 border-dashed border-gray-300">
                   <div className="text-gray-400 text-center px-4">
@@ -100,8 +125,9 @@ export function FlashCard({
                 <img
                   src={question.imageUrl}
                   alt="Question"
-                  className={`w-full max-w-2xl h-auto object-contain rounded-lg ${imageLoaded ? 'block' : 'hidden'}`}
-                  onLoad={() => setImageLoaded(true)}
+                  className={`${imageLoaded ? 'block' : 'hidden'}`}
+                  style={getImageStyle()}
+                  onLoad={handleImageLoad}
                   onError={handleImageError}
                 />
               )}

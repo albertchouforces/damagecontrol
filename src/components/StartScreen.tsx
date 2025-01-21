@@ -65,7 +65,7 @@ export function StartScreen({
                 <img
                   src={quiz1Config.startScreenImage}
                   alt={quiz1Config.title}
-                  className={`w-full h-full object-cover ${quiz1ImageLoaded ? 'block' : 'hidden'}`}
+                  className={`w-full h-full object-contain ${quiz1ImageLoaded ? 'block' : 'hidden'}`}
                   onLoad={() => setQuiz1ImageLoaded(true)}
                   onError={() => setQuiz1ImageError(true)}
                 />
@@ -113,7 +113,7 @@ export function StartScreen({
                 <img
                   src={quiz2Config.startScreenImage}
                   alt={quiz2Config.title}
-                  className={`w-full h-full object-cover ${quiz2ImageLoaded ? 'block' : 'hidden'}`}
+                  className={`w-full h-full object-contain ${quiz2ImageLoaded ? 'block' : 'hidden'}`}
                   onLoad={() => setQuiz2ImageLoaded(true)}
                   onError={() => setQuiz2ImageError(true)}
                 />
