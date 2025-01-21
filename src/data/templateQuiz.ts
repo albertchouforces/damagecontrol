@@ -54,7 +54,7 @@ export const SECOND_QUIZ_CONFIG = {
 export const templateQuestions: QuestionData[] = [
   {
     id: 1,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Cleansing Station",
     description: "",
     fact: "",
@@ -62,7 +62,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 2,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Closed During EPS",
     description: "",
     fact: "",
@@ -70,7 +70,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 3,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Damage Control Locker",
     description: "",
     fact: "",
@@ -78,7 +78,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 4,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Danger High Temperature Pressure",
     description: "",
     fact: "",
@@ -86,7 +86,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 5,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Deep Shelter Stations",
     description: "",
     fact: "",
@@ -94,7 +94,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 6,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Door Not To Be Used In The Citadel State",
     description: "",
     fact: "",
@@ -102,7 +102,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 7,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Door To Be Used In The Citadel State",
     description: "",
     fact: "",
@@ -110,7 +110,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 8,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Electrical Equipment Locker",
     description: "",
     fact: "",
@@ -118,7 +118,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 9,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Escape Hatch Direction Of Opening (Luminous)",
     description: "",
     fact: "",
@@ -126,7 +126,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 10,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Eye Protection Required",
     description: "",
     fact: "",
@@ -134,7 +134,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 11,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Filtration System",
     description: "",
     fact: "",
@@ -142,7 +142,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 12,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Fire Fighting Equipment Locker",
     description: "",
     fact: "",
@@ -150,7 +150,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 13,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Locked Open",
     description: "",
     fact: "",
@@ -158,7 +158,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 14,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Locked Shut",
     description: "",
     fact: "",
@@ -166,7 +166,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 15,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Magazine & Spirit Room Sprinklers",
     description: "",
     fact: "",
@@ -174,7 +174,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 16,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "No Smoking",
     description: "",
     fact: "",
@@ -182,7 +182,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 17,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "No Spark Producing Equipment",
     description: "",
     fact: "",
@@ -190,7 +190,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 18,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Open At Flying Station",
     description: "",
     fact: "",
@@ -198,7 +198,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 19,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Open During EPS",
     description: "",
     fact: "",
@@ -206,7 +206,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 20,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Radiac Equipment Locker",
     description: "",
     fact: "",
@@ -214,7 +214,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 21,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Recirculation",
     description: "",
     fact: "",
@@ -222,7 +222,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 22,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Shut At Flying Station",
     description: "",
     fact: "",
@@ -230,7 +230,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 23,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Shut In Condition Alpha",
     description: "",
     fact: "",
@@ -238,7 +238,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 24,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Shut In Condition Bravo",
     description: "",
     fact: "",
@@ -246,7 +246,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 25,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Ventilation Exhaust Flow Arrow Attached",
     description: "",
     fact: "",
@@ -254,7 +254,7 @@ export const templateQuestions: QuestionData[] = [
   },
   {
     id: 26,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Ventilation Supply Flow Arrow Attached",
     description: "",
     fact: "",
@@ -338,7 +338,7 @@ export const secondQuizQuestions: QuestionData[] = [
   },
   {
     id: 10,
-    question: "What is this symbol?",
+    question: "What is this sign?",
     correctAnswer: "Fire Out-Overhauled",
     description: "",
     fact: "",
