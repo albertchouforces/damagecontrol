@@ -82,8 +82,7 @@ export function FlashCard({
       maxHeight: `${maxHeight}px`,
       width: 'auto',
       height: 'auto',
-      objectFit: 'contain',
-      backgroundColor: 'transparent'
+      mixBlendMode: 'multiply' as const // Helps with transparency
     };
   };
 
@@ -99,6 +98,12 @@ export function FlashCard({
     }
     return "bg-gray-100";
   };
+
+  // Debug logging for question progress
+  useEffect(() => {
+    console.log(`Showing question ${questionNumber} of ${totalQuestions}`);
+    console.log('Current question:', question);
+  }, [questionNumber, totalQuestions, question]);
 
   return (
     <div className="w-full max-w-3xl bg-white rounded-xl shadow-lg">
@@ -127,7 +132,7 @@ export function FlashCard({
                 <img
                   src={question.imageUrl}
                   alt="Question"
-                  className={`${imageLoaded ? 'block' : 'hidden'}`}
+                  className={`${imageLoaded ? 'block' : 'hidden'} bg-transparent`}
                   style={getImageStyle()}
                   onLoad={handleImageLoad}
                   onError={handleImageError}

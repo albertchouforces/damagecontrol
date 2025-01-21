@@ -4,8 +4,7 @@ import { ScoreDisplay } from './components/ScoreDisplay';
 import { StartScreen } from './components/StartScreen';
 import { UserNameInput } from './components/UserNameInput';
 import { Footer } from './components/Footer';
-import { templateQuestions, QUIZ_CONFIG } from './data/templateQuiz';
-import { secondQuizQuestions, SECOND_QUIZ_CONFIG } from './data/quiz';
+import { templateQuestions, secondQuizQuestions, QUIZ_CONFIG, SECOND_QUIZ_CONFIG } from './data/templateQuiz';
 import { shuffleArray, getRandomOptions } from './lib/utils';
 import type { QuizStats, QuestionData, HighScoreEntry } from './types';
 import { Book } from 'lucide-react';
@@ -32,14 +31,20 @@ function App() {
   const [accumulatedTime, setAccumulatedTime] = useState(0);
 
   const currentQuizConfig = selectedQuiz === 'quiz2' ? SECOND_QUIZ_CONFIG : QUIZ_CONFIG;
-  const currentQuestions = selectedQuiz === 'quiz2' ? secondQuizQuestions : templateQuestions;
+  
+  // Debug logging for question arrays
+  useEffect(() => {
+    console.log('Template Questions length:', templateQuestions.length);
+    console.log('Second Quiz Questions length:', secondQuizQuestions.length);
+  }, []);
 
-  // Get possible answers from the current quiz only
-  const allPossibleAnswers = useMemo(() => 
-    Array.from(new Set(currentQuestions.map(q => q.correctAnswer))),
-    [currentQuestions]
-  );
+  // Get all unique possible answers for the current quiz
+  const allPossibleAnswers = useMemo(() => {
+    const currentQuestions = selectedQuiz === 'quiz2' ? secondQuizQuestions : templateQuestions;
+    return Array.from(new Set(currentQuestions.map(q => q.correctAnswer)));
+  }, [selectedQuiz]);
 
+  // Load initial stats from localStorage
   useEffect(() => {
     if (selectedQuiz) {
       const statsKey = `quiz_stats_${currentQuizConfig.quiz_name}`;
@@ -50,6 +55,7 @@ function App() {
     }
   }, [selectedQuiz, currentQuizConfig.quiz_name]);
 
+  // Timer effect with pause functionality
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
 
@@ -91,14 +97,16 @@ function App() {
   };
 
   const handleQuizSelect = (quiz: 'quiz1' | 'quiz2') => {
+    console.log('Selected quiz:', quiz);
     setSelectedQuiz(quiz);
-    handleStart();
+    setCurrentQuestionIndex(0); // Reset question index
+    handleStart(quiz); // Pass the selected quiz to handleStart
   };
 
   const updateStats = (userName: string) => {
     const statsKey = `quiz_stats_${currentQuizConfig.quiz_name}`;
     const currentStats = getCurrentStats();
-    const accuracy = Math.round((correctAnswers / currentQuizConfig.totalQuestions) * 100);
+    const accuracy = Math.round((correctAnswers / totalAnswers) * 100);
 
     const newHighScore = Math.max(currentStats.highScore, correctAnswers);
 
@@ -141,7 +149,16 @@ function App() {
     }
   };
 
-  const handleStart = () => {
+  const handleStart = (quizType: 'quiz1' | 'quiz2' = 'quiz1') => {
+    // Get the appropriate questions array based on selected quiz
+    const questionsForQuiz = quizType === 'quiz2' ? secondQuizQuestions : templateQuestions;
+    console.log(`Starting ${quizType} with ${questionsForQuiz.length} questions`);
+    
+    // Create a copy and shuffle all questions
+    const shuffledQuestions = shuffleArray([...questionsForQuiz]);
+    console.log('Shuffled questions length:', shuffledQuestions.length);
+    
+    // Reset all state
     setGameState('playing');
     setCurrentQuestionIndex(0);
     setCorrectAnswers(0);
@@ -151,11 +168,10 @@ function App() {
     setIsPaused(false);
     setLastPauseTime(null);
     setAccumulatedTime(0);
-    
-    // Use all questions from the selected quiz
-    const questionsForQuiz = selectedQuiz === 'quiz2' ? secondQuizQuestions : templateQuestions;
-    const shuffledQuestions = shuffleArray([...questionsForQuiz]);
     setRandomizedQuestions(shuffledQuestions);
+
+    // Additional debug logging
+    console.log('Randomized questions set:', shuffledQuestions.length);
   };
 
   const handleAnswer = (correct: boolean) => {
@@ -176,6 +192,8 @@ function App() {
   const handleRestart = () => {
     setGameState('start');
     setSelectedQuiz(null);
+    setCurrentQuestionIndex(0);
+    setRandomizedQuestions([]);
   };
 
   const handleUserNameSubmit = (userName: string) => {
@@ -190,12 +208,11 @@ function App() {
   };
 
   const getCurrentQuestion = () => {
+    if (!randomizedQuestions.length) return null;
     return randomizedQuestions[currentQuestionIndex];
   };
 
   const options = useMemo(() => {
-    if (!randomizedQuestions.length) return [];
-    
     const currentQuestion = getCurrentQuestion();
     if (!currentQuestion) return [];
     
@@ -207,6 +224,15 @@ function App() {
     localStorage.setItem(statsKey, JSON.stringify(INITIAL_QUIZ_STATS));
     window.location.reload();
   };
+
+  // Debug logging for quiz progress
+  useEffect(() => {
+    if (randomizedQuestions.length > 0) {
+      console.log('Current quiz array length:', randomizedQuestions.length);
+      console.log('Current question index:', currentQuestionIndex);
+      console.log('Questions remaining:', randomizedQuestions.length - currentQuestionIndex - 1);
+    }
+  }, [randomizedQuestions.length, currentQuestionIndex]);
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
@@ -231,9 +257,12 @@ function App() {
                     {currentQuizConfig.title}
                   </h1>
                 </div>
+                <div className="text-center text-sm text-gray-600 mt-1">
+                  Question {currentQuestionIndex + 1} of {randomizedQuestions.length}
+                </div>
               </div>
 
-              {gameState === 'playing' ? (
+              {gameState === 'playing' && getCurrentQuestion() ? (
                 <div className="flex flex-col items-center gap-6">
                   <ScoreDisplay 
                     correct={correctAnswers} 
@@ -241,21 +270,21 @@ function App() {
                     highScore={getCurrentStats().highScore}
                     onRestart={handleRestart}
                     isFinished={false}
-                    totalQuestions={currentQuizConfig.totalQuestions}
+                    totalQuestions={randomizedQuestions.length}
                     currentTime={currentTime}
                     bestRun={getCurrentStats().bestRun}
                     quizConfig={currentQuizConfig}
                   />
                   <FlashCard
-                    question={getCurrentQuestion()}
+                    question={getCurrentQuestion()!}
                     options={options}
                     onAnswer={handleAnswer}
                     onNext={handleNext}
                     questionNumber={currentQuestionIndex + 1}
-                    totalQuestions={currentQuizConfig.totalQuestions}
+                    totalQuestions={randomizedQuestions.length}
                   />
                 </div>
-              ) : (
+              ) : gameState === 'entering-name' ? (
                 <div className="flex flex-col items-center gap-6">
                   <ScoreDisplay 
                     correct={correctAnswers} 
@@ -263,7 +292,7 @@ function App() {
                     highScore={getCurrentStats().highScore}
                     onRestart={handleRestart}
                     isFinished={true}
-                    totalQuestions={currentQuizConfig.totalQuestions}
+                    totalQuestions={randomizedQuestions.length}
                     currentTime={currentTime}
                     bestRun={getCurrentStats().bestRun}
                     quizConfig={currentQuizConfig}
@@ -274,10 +303,10 @@ function App() {
                     currentTime={currentTime}
                     highScores={getCurrentStats().highScores}
                     quizConfig={currentQuizConfig}
-                    totalQuestions={currentQuizConfig.totalQuestions}
+                    totalQuestions={randomizedQuestions.length}
                   />
                 </div>
-              )}
+              ) : null}
             </>
           )}
         </div>

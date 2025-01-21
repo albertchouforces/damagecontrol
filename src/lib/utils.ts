@@ -23,12 +23,9 @@ export const getRandomOptions = (
     answer.toLowerCase() !== correctAnswer.toLowerCase()
   );
 
-  // Calculate how many wrong answers we can actually use
-  const availableWrongAnswers = Math.min(count - 1, otherAnswers.length);
-  
-  // Shuffle the other answers and take the available number
+  // Shuffle the other answers and take the required number
   const randomWrongAnswers = shuffleArray(otherAnswers)
-    .slice(0, availableWrongAnswers);
+    .slice(0, count - 1);
 
   // Combine with correct answer and shuffle again
   return shuffleArray([...randomWrongAnswers, correctAnswer]);

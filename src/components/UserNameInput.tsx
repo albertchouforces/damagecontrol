@@ -11,7 +11,7 @@ interface UserNameInputProps {
   currentTime: number;
   highScores: HighScoreEntry[];
   quizConfig: QuizConfig;
-  totalQuestions: number;
+  totalQuestions: number;  // Add this prop to get the total number of questions
 }
 
 export function UserNameInput({ 
@@ -29,6 +29,7 @@ export function UserNameInput({
   const [isLoadingGlobalRank, setIsLoadingGlobalRank] = useState(false);
 
   useEffect(() => {
+    // Only fetch global rank if the feature is enabled
     if (!ENABLE_GLOBAL_LEADERBOARD) {
       setIsLoadingGlobalRank(false);
       return;
@@ -108,9 +109,12 @@ export function UserNameInput({
     setError(null);
 
     try {
+      // Update local score through callback
       onSubmit(trimmedUserName);
 
+      // Only attempt to save to global database if the feature is enabled
       if (ENABLE_GLOBAL_LEADERBOARD) {
+        // Calculate accuracy based on total questions instead of highScores length
         const accuracy = Math.round((currentScore / totalQuestions) * 100);
         
         console.log('Saving global score...', {
@@ -130,10 +134,12 @@ export function UserNameInput({
 
         if (!success) {
           console.error('Failed to save global score');
+          // Don't show error to user since local save succeeded
         }
       }
     } catch (err) {
       console.error('Error in handleSubmit:', err);
+      // Only show database error if global leaderboard is enabled
       if (ENABLE_GLOBAL_LEADERBOARD) {
         setError('An error occurred while saving your score. Your local score has been saved.');
       }
