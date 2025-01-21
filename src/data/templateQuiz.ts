@@ -34,7 +34,7 @@ import type { QuestionData } from '../types';
 
 // Quiz display configuration - First Quiz (Blue theme)
 export const QUIZ_CONFIG = {
-  title: "Symbols",
+  title: "Signs",
   description: "",
   themeColor: 'blue' as const,  // Options: 'blue' | 'green' | 'sky' | 'red'
   quiz_name: "dc_symbol", // Unique identifier for the quiz, used in database
@@ -43,7 +43,7 @@ export const QUIZ_CONFIG = {
 
 // Second Quiz Configuration (Red theme)
 export const SECOND_QUIZ_CONFIG = {
-  title: "Legends",
+  title: "Panel Symbols",
   description: "",
   themeColor: 'red' as const,
   quiz_name: "dc_legend",
