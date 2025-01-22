@@ -37,7 +37,7 @@ export function StartScreen({
     <div className="max-w-4xl w-full flex flex-col items-center">
       <div className="text-center mb-8 w-full">
         <div className="flex items-center justify-center gap-2 mb-4">
-          <Shield size={32} className="text-gray-800" />
+          <Shield size={32} className="text-gray-600" />
           <h1 className="text-4xl font-bold text-gray-800">Damage Control Quiz</h1>
         </div>
         <p className="text-xl text-gray-600">
