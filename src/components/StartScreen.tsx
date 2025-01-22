@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Globe2, ImageOff, Book } from 'lucide-react';
+import { Globe2, ImageOff, Shield } from 'lucide-react';
 import { QuizStats, QuizConfig } from '../types';
 import { HighScoresList } from './HighScoresList';
 import { GlobalLeaderboard } from './GlobalLeaderboard';
