@@ -63,10 +63,10 @@ export const templateQuestions: QuestionData[] = [
   {
     id: 2,
     question: "What is this sign?",
-    correctAnswer: "Closed During EPS",
+    correctAnswer: "Closed During EFS",
     description: "",
     fact: "",
-    imageUrl: "/images/symbols/Closed During EPS.png"
+    imageUrl: "/images/symbols/Closed During EFS.png"
   },
   {
     id: 3,
@@ -199,10 +199,10 @@ export const templateQuestions: QuestionData[] = [
   {
     id: 19,
     question: "What is this sign?",
-    correctAnswer: "Open During EPS",
+    correctAnswer: "Open During EFS",
     description: "",
     fact: "",
-    imageUrl: "/images/symbols/Open During EPS.png"
+    imageUrl: "/images/symbols/Open During EFS.png"
   },
   {
     id: 20,
