@@ -41,7 +41,7 @@ export function StartScreen({
           <h1 className="text-4xl font-bold text-gray-800">Damage Control Quiz</h1>
         </div>
         <p className="text-xl text-gray-600">
-          Test your knowledge on DC symbols and legends
+          Test your knowledge of DC signs and panel symbols
         </p>
       </div>
 
