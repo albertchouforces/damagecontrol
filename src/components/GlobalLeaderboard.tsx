@@ -99,9 +99,6 @@ export function GlobalLeaderboard({ onClose }: GlobalLeaderboardProps) {
             />
           </div>
 
-          <p className="text-gray-600">
-            Top scores for {currentQuizConfig.title}
-          </p>
         </div>
 
         <div className="flex-1 overflow-auto p-6">
