@@ -46,12 +46,7 @@ export function StartScreen({
     setImageLoaded: (loaded: boolean) => void;
   }) => (
     <div className="bg-white rounded-xl shadow-lg p-6">
-      <div className="text-center mb-4">
-        <h2 className={`text-2xl font-bold text-${config.themeColor}-600`}>
-          {config.title}
-        </h2>
-      </div>
-
+      {/* Image Section - Moved above title */}
       {config.startScreenImage && (
         <div className="relative w-full h-48 mb-4 bg-transparent rounded-lg overflow-hidden flex items-center justify-center">
           {!imageLoaded && !imageError && (
@@ -85,6 +80,13 @@ export function StartScreen({
           )}
         </div>
       )}
+
+      {/* Title Section - Moved below image */}
+      <div className="text-center mb-4">
+        <h2 className={`text-2xl font-bold text-${config.themeColor}-600`}>
+          {config.title}
+        </h2>
+      </div>
 
       <p className="text-gray-600 mb-4 text-center">{config.description}</p>
 
