@@ -28,6 +28,82 @@ export function StartScreen({
   const [quiz2ImageError, setQuiz2ImageError] = useState(false);
   const [quiz2ImageLoaded, setQuiz2ImageLoaded] = useState(false);
 
+  const QuizCard = ({ 
+    config, 
+    stats, 
+    quizType, 
+    imageError, 
+    imageLoaded, 
+    setImageError, 
+    setImageLoaded 
+  }: {
+    config: QuizConfig;
+    stats: QuizStats;
+    quizType: 'quiz1' | 'quiz2';
+    imageError: boolean;
+    imageLoaded: boolean;
+    setImageError: (error: boolean) => void;
+    setImageLoaded: (loaded: boolean) => void;
+  }) => (
+    <div className="bg-white rounded-xl shadow-lg p-6">
+      <div className="text-center mb-4">
+        <h2 className={`text-2xl font-bold text-${config.themeColor}-600`}>
+          {config.title}
+        </h2>
+      </div>
+
+      {config.startScreenImage && (
+        <div className="relative w-full h-48 mb-4 bg-transparent rounded-lg overflow-hidden flex items-center justify-center">
+          {!imageLoaded && !imageError && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-gray-400">Loading...</div>
+            </div>
+          )}
+          {imageError ? (
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-400">
+              <ImageOff size={32} />
+              <p className="text-sm mt-2">Image not available</p>
+            </div>
+          ) : (
+            <img
+              src={config.startScreenImage}
+              alt={config.title}
+              className={`
+                ${imageLoaded ? 'opacity-100' : 'opacity-0'}
+                transition-opacity duration-200
+                w-full h-full
+                object-contain
+                mix-blend-multiply
+              `}
+              style={{
+                maxWidth: '100%',
+                maxHeight: '100%'
+              }}
+              onLoad={() => setImageLoaded(true)}
+              onError={() => setImageError(true)}
+            />
+          )}
+        </div>
+      )}
+
+      <p className="text-gray-600 mb-4 text-center">{config.description}</p>
+
+      <HighScoresList 
+        scores={stats.highScores}
+        onReset={() => onResetScores(config.quiz_name)}
+        quizConfig={config}
+      />
+      
+      <button
+        onClick={() => onQuizSelect(quizType)}
+        className={`w-full mt-4 px-6 py-3 bg-${config.themeColor}-600 hover:bg-${config.themeColor}-700 text-white rounded-lg transition-colors font-semibold flex items-center justify-center gap-2`}
+      >
+        <Play size={20} />
+        Start Quiz
+      </button>
+    </div>
+  );
+
   return (
     <div className="max-w-4xl w-full flex flex-col items-center">
       <div className="text-center mb-8 w-full">
@@ -41,104 +117,27 @@ export function StartScreen({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full mb-8">
-        {/* First Quiz Card */}
-        <div className="bg-white rounded-xl shadow-lg p-6">
-          <div className="text-center mb-4">
-            <h2 className={`text-2xl font-bold text-${quiz1Config.themeColor}-600`}>
-              {quiz1Config.title}
-            </h2>
-          </div>
-
-          {quiz1Config.startScreenImage && (
-            <div className="w-full h-48 rounded-lg overflow-hidden mb-4 bg-gray-50 flex items-center justify-center">
-              {!quiz1ImageLoaded && !quiz1ImageError && (
-                <div className="text-gray-400">Loading...</div>
-              )}
-              {quiz1ImageError ? (
-                <div className="flex flex-col items-center justify-center text-gray-400">
-                  <ImageOff size={32} />
-                  <p className="text-sm mt-2">Image not available</p>
-                </div>
-              ) : (
-                <img
-                  src={quiz1Config.startScreenImage}
-                  alt={quiz1Config.title}
-                  className={`${quiz1ImageLoaded ? 'block' : 'hidden'} w-full h-full object-contain`}
-                  style={{ mixBlendMode: 'multiply' }}
-                  onLoad={() => setQuiz1ImageLoaded(true)}
-                  onError={() => setQuiz1ImageError(true)}
-                />
-              )}
-            </div>
-          )}
-
-          <p className="text-gray-600 mb-4 text-center">{quiz1Config.description}</p>
-
-          <HighScoresList 
-            scores={quiz1Stats.highScores}
-            onReset={() => onResetScores(quiz1Config.quiz_name)}
-            quizConfig={quiz1Config}
-          />
-          
-          <button
-            onClick={() => onQuizSelect('quiz1')}
-            className={`w-full mt-4 px-6 py-3 bg-${quiz1Config.themeColor}-600 hover:bg-${quiz1Config.themeColor}-700 text-white rounded-lg transition-colors font-semibold flex items-center justify-center gap-2`}
-          >
-            <Play size={20} />
-            Start Quiz
-          </button>
-        </div>
-
-        {/* Second Quiz Card */}
-        <div className="bg-white rounded-xl shadow-lg p-6">
-          <div className="text-center mb-4">
-            <h2 className={`text-2xl font-bold text-${quiz2Config.themeColor}-600`}>
-              {quiz2Config.title}
-            </h2>
-          </div>
-
-          {quiz2Config.startScreenImage && (
-            <div className="w-full h-48 rounded-lg overflow-hidden mb-4 bg-gray-50 flex items-center justify-center">
-              {!quiz2ImageLoaded && !quiz2ImageError && (
-                <div className="text-gray-400">Loading...</div>
-              )}
-              {quiz2ImageError ? (
-                <div className="flex flex-col items-center justify-center text-gray-400">
-                  <ImageOff size={32} />
-                  <p className="text-sm mt-2">Image not available</p>
-                </div>
-              ) : (
-                <img
-                  src={quiz2Config.startScreenImage}
-                  alt={quiz2Config.title}
-                  className={`${quiz2ImageLoaded ? 'block' : 'hidden'} w-full h-full object-contain`}
-                  style={{ mixBlendMode: 'multiply' }}
-                  onLoad={() => setQuiz2ImageLoaded(true)}
-                  onError={() => setQuiz2ImageError(true)}
-                />
-              )}
-            </div>
-          )}
-
-          <p className="text-gray-600 mb-4 text-center">{quiz2Config.description}</p>
-
-          <HighScoresList 
-            scores={quiz2Stats.highScores}
-            onReset={() => onResetScores(quiz2Config.quiz_name)}
-            quizConfig={quiz2Config}
-          />
-
-          <button
-            onClick={() => onQuizSelect('quiz2')}
-            className={`w-full mt-4 px-6 py-3 bg-${quiz2Config.themeColor}-600 hover:bg-${quiz2Config.themeColor}-700 text-white rounded-lg transition-colors font-semibold flex items-center justify-center gap-2`}
-          >
-            <Play size={20} />
-            Start Quiz
-          </button>
-        </div>
+        <QuizCard
+          config={quiz1Config}
+          stats={quiz1Stats}
+          quizType="quiz1"
+          imageError={quiz1ImageError}
+          imageLoaded={quiz1ImageLoaded}
+          setImageError={setQuiz1ImageError}
+          setImageLoaded={setQuiz1ImageLoaded}
+        />
+        
+        <QuizCard
+          config={quiz2Config}
+          stats={quiz2Stats}
+          quizType="quiz2"
+          imageError={quiz2ImageError}
+          imageLoaded={quiz2ImageLoaded}
+          setImageError={setQuiz2ImageError}
+          setImageLoaded={setQuiz2ImageLoaded}
+        />
       </div>
 
-      {/* Global Leaderboard Button */}
       {ENABLE_GLOBAL_LEADERBOARD && (
         <button
           onClick={() => setShowGlobalLeaderboard(true)}
@@ -149,7 +148,6 @@ export function StartScreen({
         </button>
       )}
 
-      {/* Global Leaderboard Modal */}
       {showGlobalLeaderboard && (
         <GlobalLeaderboard onClose={() => setShowGlobalLeaderboard(false)} />
       )}
