@@ -86,7 +86,7 @@ export function GlobalLeaderboard({ onClose }: GlobalLeaderboardProps) {
             </button>
           </div>
 
-          <div className="flex gap-4 mb-4">
+          <div className="flex gap-4">
             <QuizSelector 
               config={QUIZ_CONFIG} 
               isSelected={selectedQuiz === 'quiz1'} 
