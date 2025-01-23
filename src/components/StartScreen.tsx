@@ -28,11 +28,6 @@ export function StartScreen({
   const [quiz2ImageError, setQuiz2ImageError] = useState(false);
   const [quiz2ImageLoaded, setQuiz2ImageLoaded] = useState(false);
 
-  const imageStyle = {
-    mixBlendMode: 'multiply' as const,
-    objectFit: 'contain' as const,
-  };
-
   return (
     <div className="max-w-4xl w-full flex flex-col items-center">
       <div className="text-center mb-8 w-full">
@@ -55,14 +50,12 @@ export function StartScreen({
           </div>
 
           {quiz1Config.startScreenImage && (
-            <div className="w-full h-48 rounded-lg overflow-hidden mb-4 flex items-center justify-center">
+            <div className="w-full h-48 rounded-lg overflow-hidden mb-4 bg-gray-50 flex items-center justify-center">
               {!quiz1ImageLoaded && !quiz1ImageError && (
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="text-gray-400">Loading...</div>
-                </div>
+                <div className="text-gray-400">Loading...</div>
               )}
               {quiz1ImageError ? (
-                <div className="w-full h-full flex flex-col items-center justify-center text-gray-400">
+                <div className="flex flex-col items-center justify-center text-gray-400">
                   <ImageOff size={32} />
                   <p className="text-sm mt-2">Image not available</p>
                 </div>
@@ -70,8 +63,8 @@ export function StartScreen({
                 <img
                   src={quiz1Config.startScreenImage}
                   alt={quiz1Config.title}
-                  className={`${quiz1ImageLoaded ? 'block' : 'hidden'} bg-transparent`}
-                  style={imageStyle}
+                  className={`${quiz1ImageLoaded ? 'block' : 'hidden'} w-full h-full object-contain`}
+                  style={{ mixBlendMode: 'multiply' }}
                   onLoad={() => setQuiz1ImageLoaded(true)}
                   onError={() => setQuiz1ImageError(true)}
                 />
@@ -105,14 +98,12 @@ export function StartScreen({
           </div>
 
           {quiz2Config.startScreenImage && (
-            <div className="w-full h-48 rounded-lg overflow-hidden mb-4 flex items-center justify-center">
+            <div className="w-full h-48 rounded-lg overflow-hidden mb-4 bg-gray-50 flex items-center justify-center">
               {!quiz2ImageLoaded && !quiz2ImageError && (
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="text-gray-400">Loading...</div>
-                </div>
+                <div className="text-gray-400">Loading...</div>
               )}
               {quiz2ImageError ? (
-                <div className="w-full h-full flex flex-col items-center justify-center text-gray-400">
+                <div className="flex flex-col items-center justify-center text-gray-400">
                   <ImageOff size={32} />
                   <p className="text-sm mt-2">Image not available</p>
                 </div>
@@ -120,8 +111,8 @@ export function StartScreen({
                 <img
                   src={quiz2Config.startScreenImage}
                   alt={quiz2Config.title}
-                  className={`${quiz2ImageLoaded ? 'block' : 'hidden'} bg-transparent`}
-                  style={imageStyle}
+                  className={`${quiz2ImageLoaded ? 'block' : 'hidden'} w-full h-full object-contain`}
+                  style={{ mixBlendMode: 'multiply' }}
                   onLoad={() => setQuiz2ImageLoaded(true)}
                   onError={() => setQuiz2ImageError(true)}
                 />
