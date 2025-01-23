@@ -74,7 +74,7 @@ export function GlobalLeaderboard({ onClose }: GlobalLeaderboardProps) {
         <div className="p-6 border-b border-gray-200">
           <div className="flex justify-between items-center mb-4">
             <div className="flex items-center gap-2">
-              <Trophy className={`text-${currentQuizConfig.themeColor}-500`} size={24} />
+              <Trophy className="text-yellow-500" size={24} />
               <h2 className="text-2xl font-bold text-gray-800">Global Leaderboard</h2>
             </div>
             <button
