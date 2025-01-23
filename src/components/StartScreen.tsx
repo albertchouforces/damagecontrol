@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Globe2, ImageOff, Shield } from 'lucide-react';
+import { Globe2, ImageOff, Shield, Play } from 'lucide-react';
 import { QuizStats, QuizConfig } from '../types';
 import { HighScoresList } from './HighScoresList';
 import { GlobalLeaderboard } from './GlobalLeaderboard';
@@ -70,7 +70,7 @@ export function StartScreen({
                 <img
                   src={quiz1Config.startScreenImage}
                   alt={quiz1Config.title}
-                  className={`w-full h-full object-contain bg-transparent ${quiz1ImageLoaded ? 'block' : 'hidden'}`}
+                  className={`${quiz1ImageLoaded ? 'block' : 'hidden'} bg-transparent`}
                   style={imageStyle}
                   onLoad={() => setQuiz1ImageLoaded(true)}
                   onError={() => setQuiz1ImageError(true)}
@@ -86,11 +86,12 @@ export function StartScreen({
             onReset={() => onResetScores(quiz1Config.quiz_name)}
             quizConfig={quiz1Config}
           />
-
+          
           <button
             onClick={() => onQuizSelect('quiz1')}
-            className={`w-full mt-4 px-6 py-3 bg-${quiz1Config.themeColor}-600 hover:bg-${quiz1Config.themeColor}-700 text-white rounded-lg transition-colors font-semibold`}
+            className={`w-full mt-4 px-6 py-3 bg-${quiz1Config.themeColor}-600 hover:bg-${quiz1Config.themeColor}-700 text-white rounded-lg transition-colors font-semibold flex items-center justify-center gap-2`}
           >
+            <Play size={20} />
             Start Quiz
           </button>
         </div>
@@ -119,7 +120,7 @@ export function StartScreen({
                 <img
                   src={quiz2Config.startScreenImage}
                   alt={quiz2Config.title}
-                  className={`w-full h-full object-contain bg-transparent ${quiz2ImageLoaded ? 'block' : 'hidden'}`}
+                  className={`${quiz2ImageLoaded ? 'block' : 'hidden'} bg-transparent`}
                   style={imageStyle}
                   onLoad={() => setQuiz2ImageLoaded(true)}
                   onError={() => setQuiz2ImageError(true)}
@@ -138,8 +139,9 @@ export function StartScreen({
 
           <button
             onClick={() => onQuizSelect('quiz2')}
-            className={`w-full mt-4 px-6 py-3 bg-${quiz2Config.themeColor}-600 hover:bg-${quiz2Config.themeColor}-700 text-white rounded-lg transition-colors font-semibold`}
+            className={`w-full mt-4 px-6 py-3 bg-${quiz2Config.themeColor}-600 hover:bg-${quiz2Config.themeColor}-700 text-white rounded-lg transition-colors font-semibold flex items-center justify-center gap-2`}
           >
+            <Play size={20} />
             Start Quiz
           </button>
         </div>
