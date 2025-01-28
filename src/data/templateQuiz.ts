@@ -38,7 +38,7 @@ export const QUIZ_CONFIG = {
   description: "Test your knowledge of DC Signs",
   themeColor: 'blue' as const,  // Options: 'blue' | 'green' | 'sky' | 'red'
   quiz_name: "dc_symbol", // Unique identifier for the quiz, used in database
-  startScreenImage: "/images/quiz-start.svg" // Optional: Image shown on start screen
+  startScreenImage: "/images/quiz-start.png" // Optional: Image shown on start screen
 };
 
 // Second Quiz Configuration (Red theme)
@@ -47,7 +47,7 @@ export const SECOND_QUIZ_CONFIG = {
   description: "Test your knowledge of DC Panel Symbols",
   themeColor: 'red' as const,
   quiz_name: "dc_legend",
-  startScreenImage: "/images/quiz2-start.svg"
+  startScreenImage: "/images/quiz-start.png"
 };
 
 // First Quiz Questions
